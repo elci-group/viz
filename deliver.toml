@@ -1,0 +1,82 @@
+[[file]]
+path = "Cargo.toml"
+required = true
+forbid_regex = ["TODO", "FIXME"]
+
+[[file]]
+path = "README.md"
+required = true
+min_size_bytes = 2500
+forbid_regex = ["TODO", "FIXME", "coming soon"]
+
+[[file]]
+path = "src/lib.rs"
+required = true
+forbid_regex = ["TODO", "FIXME", "unimplemented!", "todo!"]
+
+[[file]]
+path = "src/main.rs"
+required = true
+forbid_regex = ["TODO", "FIXME", "unimplemented!", "todo!"]
+
+[[file]]
+path = "tests/cli.rs"
+required = true
+forbid_regex = ["TODO", "FIXME"]
+
+[[file]]
+path = "examples/viz.tape"
+required = true
+forbid_regex = ["TODO", "FIXME"]
+
+[[file]]
+path = "RELEASE.md"
+required = true
+forbid_regex = ["TODO", "FIXME", "unverified"]
+
+[[command]]
+name = "format"
+cmd = ["cargo", "fmt", "--", "--check"]
+expect_exit = 0
+timeout_secs = 30
+
+[[command]]
+name = "clippy"
+cmd = ["cargo", "clippy", "--all-targets", "--", "-D", "warnings"]
+expect_exit = 0
+timeout_secs = 120
+
+[[command]]
+name = "tests"
+cmd = ["cargo", "test", "--all-targets"]
+expect_exit = 0
+timeout_secs = 120
+stdout_contains = ["test result: ok"]
+
+[[command]]
+name = "rustdoc"
+cmd = ["cargo", "doc", "--no-deps"]
+expect_exit = 0
+timeout_secs = 120
+
+[[command]]
+name = "release"
+cmd = ["cargo", "build", "--release"]
+expect_exit = 0
+timeout_secs = 180
+
+[[command]]
+name = "example VHS syntax"
+cmd = ["vhs", "validate", "examples/viz.tape"]
+expect_exit = 0
+timeout_secs = 30
+
+[[command]]
+name = "offline dependency audit"
+cmd = ["cargo", "audit", "--no-fetch", "--stale"]
+expect_exit = 0
+timeout_secs = 60
+
+[git]
+no_uncommitted_changes = false
+no_untracked_files = false

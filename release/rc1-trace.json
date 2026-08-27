@@ -1,0 +1,78 @@
+[
+  {
+    "id": "11111111-1111-4111-8111-111111111111",
+    "actor": "tool",
+    "timestamp": "2026-08-09T00:00:00Z",
+    "event_type": "tool_result",
+    "payload": {
+      "tool": "deliver",
+      "command": "deliver --spec deliver.toml --strict --format json",
+      "exit_code": 0,
+      "output": "14/14 checks passed: required files, fmt, clippy, 24 tests, rustdoc, release build, VHS validation, offline audit"
+    }
+  },
+  {
+    "id": "22222222-2222-4222-8222-222222222222",
+    "actor": "tool",
+    "timestamp": "2026-08-09T00:00:01Z",
+    "event_type": "tool_result",
+    "payload": {
+      "tool": "fract",
+      "command": "fract --no-color index -f json",
+      "exit_code": 0,
+      "output": "10 modules; score 92; 8 healthy; 2 warning; 0 critical; all entropy below action threshold"
+    }
+  },
+  {
+    "id": "33333333-3333-4333-8333-333333333333",
+    "actor": "tool",
+    "timestamp": "2026-08-09T00:00:02Z",
+    "event_type": "tool_result",
+    "payload": {
+      "tool": "amber",
+      "command": "amber /home/sal/viz --format json",
+      "exit_code": 0,
+      "output": "Found 0 direct dependencies"
+    }
+  },
+  {
+    "id": "44444444-4444-4444-8444-444444444444",
+    "actor": "tool",
+    "timestamp": "2026-08-09T00:00:03Z",
+    "event_type": "tool_result",
+    "payload": {
+      "tool": "sha256sum",
+      "command": "sha256sum target/release/viz",
+      "exit_code": 0,
+      "output": "1f44e00135939e9e203c71c21fe07b6d3d5fbe415582011898d0a216f7fd62ba target/release/viz; 487960 bytes"
+    }
+  },
+  {
+    "id": "55555555-5555-4555-8555-555555555555",
+    "actor": "tool",
+    "timestamp": "2026-08-09T00:00:04Z",
+    "event_type": "tool_result",
+    "payload": {
+      "tool": "execute",
+      "command": "cargo test --all-targets",
+      "exit_code": 0,
+      "output": "test result: ok. 19 passed; 0 failed; 0 ignored; integration test result: ok. 5 passed; 0 failed; total 24 passed"
+    }
+  },
+  {
+    "id": "66666666-6666-4666-8666-666666666666",
+    "actor": "tool",
+    "timestamp": "2026-08-09T00:00:05Z",
+    "event_type": "diff",
+    "payload": "diff --git a/src/lib.rs b/src/lib.rs\n- empty workspace\n+ evidence-driven Viz implementation"
+  },
+  {
+    "id": "77777777-7777-4777-8777-777777777777",
+    "actor": "tool",
+    "timestamp": "2026-08-09T00:00:06Z",
+    "event_type": "file_write",
+    "payload": {
+      "path": "target/release/viz"
+    }
+  }
+]

@@ -16,15 +16,27 @@ binaries run while Viz inspects or generates.
 
 ## Status
 
-This repository contains the `0.1.0-rc.1` release candidate. The core is deliberately
-dependency-free, forbids unsafe Rust, and supports Cargo, Node package manifests,
-Python `pyproject.toml`, Go modules, and conservative generic-project fallbacks.
+This repository contains the `0.1.0-rc.1` release candidate. The core has no
+third-party dependencies beyond the first-party `form3` output library, forbids
+unsafe Rust, and supports Cargo, Node package manifests, Python `pyproject.toml`,
+Go modules, and conservative generic-project fallbacks.
+
+Terminal output (headings, completion messages) is rendered through `form3`,
+which negotiates styling from the terminal: colored and iconified on an
+interactive TTY, plain text when piped, redirected, or run in CI, so scripted
+and machine consumption stay unaffected.
 
 ## Install
 
-Build from a checkout with Rust 1.74 or newer:
+Build from a checkout with Rust 1.74 or newer. `form3` is not published to a
+registry; it is consumed as a sibling checkout at `../3form` relative to this
+repository (the same convention other ELCI-group tools use), so it must be
+checked out alongside `viz` before building:
 
 ```sh
+git clone <viz-repo-url> viz
+git clone <3form-repo-url> 3form   # sibling checkout, referenced by path
+cd viz
 cargo install --path .
 ```
 
