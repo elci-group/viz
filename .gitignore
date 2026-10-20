@@ -3,3 +3,11 @@
 *.mp4
 *.webm
 
+.azusa/
+.kaptaind/
+.lwoodz/
+.uni/
+.traci/
+.orb
+*.log
+.env

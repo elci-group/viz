@@ -1,0 +1,144 @@
+.TH VIZ 1 "September 2026" "0.1.0-rc.1" "User Commands"
+.SH NAME
+viz \- compile project evidence into reproducible terminal demonstrations
+.SH SYNOPSIS
+.B viz
+.I COMMAND
+.RI [ PATH ]
+.RI [ OPTIONS ]
+.SH DESCRIPTION
+.B viz
+inspects a project, explains the facts it detects, ranks the commands that
+would best demonstrate the project, and writes a deterministic VHS tape
+recording them.
+.PP
+The safety boundary is explicit:
+.B inspect
+and
+.B generate
+only read project files and never execute project code;
+.B render
+is the only command that executes a tape, through the external VHS renderer.
+Always review generated commands before rendering.
+.SH COMMANDS
+.TP
+.BI viz inspect " [ PATH ] [ \-\-json ]"
+Explain the detected project facts (with source file and line) and the ranked
+demonstration commands. With
+.BR \-\-json ,
+prints the project, evidence, and commands as JSON. Default path: the current
+directory.
+.TP
+.BR viz generate " | " init " | " new " [ " PATH " ] [ OPTIONS ]"
+Write a deterministic VHS tape for the project (default output:
+.IR <project>/demo.tape ).
+.B init
+and
+.B new
+are aliases of
+.BR generate .
+.TP
+.BI viz check " <TAPE>"
+Validate the tape structure and parse it with the external VHS tool. Requires
+.B vhs
+on PATH.
+.TP
+.BI viz render " <TAPE> [ \-o " MEDIA ]
+Validate the tape, then explicitly execute it through the external VHS
+renderer. Requires
+.B vhs
+on PATH. With
+.IR \-o ,
+VHS writes GIF, MP4, or WebM media to
+.IR MEDIA .
+.TP
+.BR viz " " help | \-h | \-\-help
+Print the help text.
+.TP
+.BR viz " " version | \-V | \-\-version
+Print the version.
+.SS "generate options"
+.TP
+.BI \-o ", " \-\-output " <TAPE>"
+Tape path (default:
+.IR <project>/demo.tape ).
+Cannot be combined with
+.BR \-\-stdout .
+.TP
+.BI \-\-media " <PATH>"
+GIF, MP4, or WebM output embedded in the tape.
+.TP
+.BI \-\-command " <SHELL>"
+Record this command instead of an inferred command; repeatable.
+.TP
+.B \-\-all
+Include every inferred command.
+.TP
+.BI \-\-title " <TEXT>"
+Override the displayed project title.
+.TP
+.BI \-\-width " <PX>"
+Terminal width. (default: 1200)
+.TP
+.BI \-\-height " <PX>"
+Terminal height. (default: 720)
+.TP
+.BI \-\-font\-size " <PX>"
+Font size from 8 to 72. (default: 18)
+.TP
+.BI \-\-typing\-speed " <MS>"
+Delay per typed character. (default: 35)
+.TP
+.B \-\-stdout
+Print the tape instead of writing it. Cannot be combined with
+.B \-\-output
+or
+.BR \-\-force .
+.TP
+.BR \-f ", " \-\-force
+Replace an existing tape atomically.
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 1
+Inspection, filesystem, or external VHS failure.
+.TP
+.B 2
+Usage error (unknown command or option, missing tape argument, conflicting
+output modes).
+.SH FILES
+.TP
+.I demo.tape
+Default tape written by
+.BR "viz generate" .
+.SH ENVIRONMENT
+.TP
+.B vhs
+The external VHS executable must be on PATH for
+.B check
+and
+.BR render .
+.SH EXAMPLES
+Inspect a project and list ranked demo commands:
+.RS 4
+.B viz inspect ~/src/myapp
+.RE
+.PP
+Generate a tape with custom media and title:
+.RS 4
+.B viz generate \-\-media out.gif \-\-title "My App" \-\-output demo.tape
+.RE
+.PP
+Validate, then render:
+.RS 4
+.B viz check demo.tape
+.B viz render demo.tape \-o demo.gif
+.RE
+.SH SEE ALSO
+The README at https://github.com/elci-group/viz and the VHS tape format
+documentation at https://github.com/charmbracelet/vhs .
+.SH BUGS
+Report bugs on the GitHub issue tracker at
+https://github.com/elci-group/viz/issues
