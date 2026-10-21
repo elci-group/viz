@@ -1,0 +1,32 @@
+# ELCI project manifest — ELCI-RGCA-001 §5
+# Provisional (Phase 1 machine draft). Human review required for Tier-S/A.
+schema_version = "1.0"
+
+[project]
+id = "viz"
+name = "viz"
+descriptor = "Viz turns observed project structure into reproducible terminal demonstrations. It inspects a repository, explains the evidence found, and compiles a credible command plan into a human-readable VHS tape file. Static and safe by default, supporting Cargo, Node, Python, and Go projects."
+status = "active"
+maturity = "alpha"
+class = "developer-tool"
+
+[ownership]
+organisation = "elci-group"
+maintainer = "ELCI Group"
+
+[architecture]
+independent_boundary = true
+boundary_reason = "Provisional Phase 1 classification (tier C); pending §17 rationalisation review."
+parent = []
+capabilities = []
+consumers = []
+
+[authority]
+human_write_authority = true
+agent_write_authority = false
+autonomous_operation = false
+
+[lifecycle]
+introduced = "2026"
+supersedes = []
+superseded_by = []
